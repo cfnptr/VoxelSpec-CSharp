@@ -15,7 +15,7 @@
 
 using System.Numerics;
 
-namespace QuantumBranch.OpenCubicSpace.Core
+namespace OpenVoxelSpec
 {
     /// <summary>
     /// Player database interface

@@ -15,7 +15,7 @@
 
 using System;
 
-namespace QuantumBranch.OpenCubicSpace.Core
+namespace OpenVoxelSpec
 {
     /// <summary>
     /// Block information container class

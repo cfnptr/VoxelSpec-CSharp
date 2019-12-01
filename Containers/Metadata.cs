@@ -19,7 +19,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QuantumBranch.OpenCubicSpace.Core
+namespace OpenVoxelSpec
 {
     public struct Metadata
     {

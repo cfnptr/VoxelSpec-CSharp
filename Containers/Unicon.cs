@@ -13,12 +13,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace QuantumBranch.OpenCubicSpace.Core
+namespace OpenVoxelSpec
 {
     /// <summary>
-    /// Open cubic space core constants container
+    /// Open voxel specification unified constants container
     /// </summary>
-    public static class OCSC
+    public static class Unicon
     {
         /// <summary>
         /// Segment size in blocks or units along three axes

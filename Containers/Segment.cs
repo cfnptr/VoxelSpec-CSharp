@@ -13,13 +13,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using QuantumBranch.OpenSharedLibrary;
+using OpenSharedLibrary;
 using System;
 using System.IO;
 using System.IO.Compression;
 using System.Numerics;
 
-namespace QuantumBranch.OpenCubicSpace.Core
+namespace OpenVoxelSpec
 {
     /// <summary>
     /// Segment container class
@@ -29,12 +29,12 @@ namespace QuantumBranch.OpenCubicSpace.Core
         /// <summary>
         /// Sector container byte array size
         /// </summary>
-        public const int ByteSize = OCSC.SegmentVolume * Block.ByteSize;
+        public const int ByteSize = Unicon.SegmentVolume * Block.ByteSize;
 
         /// <summary>
         /// Number of blocks in an array
         /// </summary>
-        public int Length => OCSC.SegmentVolume;
+        public int Length => Unicon.SegmentVolume;
         /// <summary>
         /// Segment container byte array size
         /// </summary>
@@ -43,11 +43,11 @@ namespace QuantumBranch.OpenCubicSpace.Core
         /// <summary>
         /// Segment block array size
         /// </summary>
-        public Vector3 Size => new Vector3(OCSC.SegmentSize, OCSC.SegmentSize, OCSC.SegmentSize);
+        public Vector3 Size => new Vector3(Unicon.SegmentSize, Unicon.SegmentSize, Unicon.SegmentSize);
         /// <summary>
         /// Segment safe block array size (size - 1)
         /// </summary>
-        public Vector3 SafeSize => new Vector3(OCSC.SegmentSize - 1, OCSC.SegmentSize - 1, OCSC.SegmentSize - 1);
+        public Vector3 SafeSize => new Vector3(Unicon.SegmentSize - 1, Unicon.SegmentSize - 1, Unicon.SegmentSize - 1);
 
         /// <summary>
         /// Segment block array
@@ -59,14 +59,14 @@ namespace QuantumBranch.OpenCubicSpace.Core
         /// </summary>
         public Segment()
         {
-            blocks = new Block[OCSC.SegmentVolume];
+            blocks = new Block[Unicon.SegmentVolume];
         }
         /// <summary>
         /// Creates a new segment structure instance
         /// </summary>
         public Segment(Block[] blocks)
         {
-            if (blocks.Length != OCSC.SegmentVolume)
+            if (blocks.Length != Unicon.SegmentVolume)
                 throw new ArgumentException("Wrong array length", nameof(blocks));
             this.blocks = blocks;
         }
@@ -75,8 +75,8 @@ namespace QuantumBranch.OpenCubicSpace.Core
         /// </summary>
         public Segment(BinaryReader binaryReader)
         {
-            blocks = new Block[OCSC.SegmentVolume];
-            for (int i = 0; i < OCSC.SegmentVolume; i++)
+            blocks = new Block[Unicon.SegmentVolume];
+            for (int i = 0; i < Unicon.SegmentVolume; i++)
                 blocks[i] = new Block(binaryReader.ReadUInt16());
         }
 
@@ -85,14 +85,14 @@ namespace QuantumBranch.OpenCubicSpace.Core
         /// </summary>
         public Block GetBlockUnsafe(int x, int y, int z)
         {
-            return blocks[x + z * OCSC.SegmentSize + y * OCSC.SegmentArea];
+            return blocks[x + z * Unicon.SegmentSize + y * Unicon.SegmentArea];
         }
         /// <summary>
         /// Returns block value from an array without checking position boundaries
         /// </summary>
         public Block GetBlockUnsafe(Vector3 position)
         {
-            return blocks[(int)position.X + (int)position.Z * OCSC.SegmentSize + (int)position.Y * OCSC.SegmentArea];
+            return blocks[(int)position.X + (int)position.Z * Unicon.SegmentSize + (int)position.Y * Unicon.SegmentArea];
         }
 
         /// <summary>
@@ -107,20 +107,20 @@ namespace QuantumBranch.OpenCubicSpace.Core
         /// </summary>
         public Block GetBlock(int x, int y, int z)
         {
-            if (x < 0 || x >= OCSC.SegmentSize || y < 0 || y >= OCSC.SegmentSize || z < 0 || z >= OCSC.SegmentSize)
+            if (x < 0 || x >= Unicon.SegmentSize || y < 0 || y >= Unicon.SegmentSize || z < 0 || z >= Unicon.SegmentSize)
                 throw new ArgumentOutOfRangeException("x, y, or z");
 
-            return blocks[x + z * OCSC.SegmentSize + y * OCSC.SegmentArea];
+            return blocks[x + z * Unicon.SegmentSize + y * Unicon.SegmentArea];
         }
         /// <summary>
         /// Returns block value from an array
         /// </summary>
         public Block GetBlock(Vector3 position)
         {
-            if (position.X < 0 || position.X >= OCSC.SegmentSize || position.Y < 0 || position.Y >= OCSC.SegmentSize || position.Z < 0 || position.Z >= OCSC.SegmentSize)
+            if (position.X < 0 || position.X >= Unicon.SegmentSize || position.Y < 0 || position.Y >= Unicon.SegmentSize || position.Z < 0 || position.Z >= Unicon.SegmentSize)
                 throw new ArgumentOutOfRangeException("x, y, or z");
 
-            return blocks[(int)position.X + (int)position.Z * OCSC.SegmentSize + (int)position.Y * OCSC.SegmentArea];
+            return blocks[(int)position.X + (int)position.Z * Unicon.SegmentSize + (int)position.Y * Unicon.SegmentArea];
         }
 
         /// <summary>
@@ -128,14 +128,14 @@ namespace QuantumBranch.OpenCubicSpace.Core
         /// </summary>
         public void SetBlockUnsafe(int x, int y, int z, Block block)
         {
-            blocks[x + z * OCSC.SegmentSize + y * OCSC.SegmentArea] = block;
+            blocks[x + z * Unicon.SegmentSize + y * Unicon.SegmentArea] = block;
         }
         /// <summary>
         /// Sets block value to an array without checking position boundaries
         /// </summary>
         public void SetBlockUnsafe(Vector3 position, Block block)
         {
-            blocks[(int)position.X + (int)position.Z * OCSC.SegmentSize + (int)position.Y * OCSC.SegmentArea] = block;
+            blocks[(int)position.X + (int)position.Z * Unicon.SegmentSize + (int)position.Y * Unicon.SegmentArea] = block;
         }
 
         /// <summary>
@@ -150,20 +150,20 @@ namespace QuantumBranch.OpenCubicSpace.Core
         /// </summary>
         public void SetBlock(int x, int y, int z, Block block)
         {
-            if (x < 0 || x >= OCSC.SegmentSize || y < 0 || y >= OCSC.SegmentSize || z < 0 || z >= OCSC.SegmentSize)
+            if (x < 0 || x >= Unicon.SegmentSize || y < 0 || y >= Unicon.SegmentSize || z < 0 || z >= Unicon.SegmentSize)
                 throw new ArgumentOutOfRangeException("x, y, or z");
 
-            blocks[x + z * OCSC.SegmentSize + y * OCSC.SegmentArea] = block;
+            blocks[x + z * Unicon.SegmentSize + y * Unicon.SegmentArea] = block;
         }
         /// <summary>
         /// Sets block value to an array
         /// </summary>
         public void SetBlock(Vector3 position, Block block)
         {
-            if (position.X < 0 || position.X >= OCSC.SegmentSize || position.Y < 0 || position.Y >= OCSC.SegmentSize || position.Z < 0 || position.Z >= OCSC.SegmentSize)
+            if (position.X < 0 || position.X >= Unicon.SegmentSize || position.Y < 0 || position.Y >= Unicon.SegmentSize || position.Z < 0 || position.Z >= Unicon.SegmentSize)
                 throw new ArgumentOutOfRangeException("x, y, or z");
 
-            blocks[(int)position.X + (int)position.Z * OCSC.SegmentSize + (int)position.Y * OCSC.SegmentArea] = block;
+            blocks[(int)position.X + (int)position.Z * Unicon.SegmentSize + (int)position.Y * Unicon.SegmentArea] = block;
         }
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace QuantumBranch.OpenCubicSpace.Core
         /// </summary>
         public void ToBytes(BinaryWriter binaryWriter)
         {
-            for (int i = 0; i < OCSC.SegmentVolume; i++)
+            for (int i = 0; i < Unicon.SegmentVolume; i++)
                 binaryWriter.Write(blocks[i]);
         }
 

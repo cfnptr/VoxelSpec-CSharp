@@ -13,10 +13,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using QuantumBranch.OpenSharedLibrary;
+using OpenSharedLibrary;
 using System.IO;
 
-namespace QuantumBranch.OpenCubicSpace.Core
+namespace OpenVoxelSpec
 {
     /// <summary>
     /// Player database class

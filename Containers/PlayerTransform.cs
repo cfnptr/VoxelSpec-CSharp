@@ -13,11 +13,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using QuantumBranch.OpenSharedLibrary;
+using OpenSharedLibrary;
 using System.IO;
 using System.Numerics;
 
-namespace QuantumBranch.OpenCubicSpace.Core
+namespace OpenVoxelSpec
 {
     /// <summary>
     /// Player transform container structure

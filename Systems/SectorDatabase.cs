@@ -17,7 +17,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Numerics;
 
-namespace QuantumBranch.OpenCubicSpace.Core
+namespace OpenVoxelSpec
 {
     /// <summary>
     /// Sector database class

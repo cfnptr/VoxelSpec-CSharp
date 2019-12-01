@@ -1,3 +1,6 @@
 [submodule "Libraries/OpenSharedLibrary"]
 	path = Libraries/OpenSharedLibrary
 	url = https://github.com/QuantumBranch/OpenSharedLibrary
+[submodule "Libraries/FastNoise_CSharp"]
+	path = Libraries/FastNoise_CSharp
+	url = https://github.com/QuantumBranch/FastNoise_CSharp
