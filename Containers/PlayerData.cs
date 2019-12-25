@@ -19,9 +19,9 @@ using System.IO;
 namespace OpenVoxelSpec
 {
     /// <summary>
-    /// Player container class
+    /// Player data container class
     /// </summary>
-    public class Player : IByteArray
+    public class PlayerData : IByteArray
     {
         /// <summary>
         /// Player container byte array size
@@ -39,22 +39,22 @@ namespace OpenVoxelSpec
         public PlayerTransform transform;
 
         /// <summary>
-        /// Creates a new player container class instance
+        /// Creates a new player data container class instance
         /// </summary>
-        public Player(PlayerTransform transform)
+        public PlayerData(PlayerTransform transform)
         {
             this.transform = transform;
         }
         /// <summary>
-        /// Creates a new player container class instance
+        /// Creates a new player data container class instance
         /// </summary>
-        public Player(BinaryReader binaryReader)
+        public PlayerData(BinaryReader binaryReader)
         {
             transform = new PlayerTransform(binaryReader);
         }
 
         /// <summary>
-        /// Converts player container to the byte array
+        /// Converts player data container to the byte array
         /// </summary>
         public void ToBytes(BinaryWriter binaryWriter)
         {

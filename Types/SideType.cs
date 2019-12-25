@@ -22,6 +22,7 @@ namespace OpenVoxelSpec
         Down,
         Up,
         Back,
-        Forward
+        Forward,
+        Count,
     }
 }

@@ -13,26 +13,38 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System.Numerics;
-
 namespace OpenVoxelSpec
 {
     /// <summary>
-    /// Player database interface
+    /// Information array container class
     /// </summary>
-    public interface ISectorDatabase
+    public class BlockInfoArray : IBlockInfoArray
     {
         /// <summary>
-        /// Returns true if the database contains sector data
+        /// Returns block information array length
         /// </summary>
-        bool Contains(Vector2 position);
+        public int Length => (int)BlockType.Count;
+
         /// <summary>
-        /// Reads sector data from the database
+        /// Block information array
         /// </summary>
-        SectorData Read(Vector2 position);
+        protected readonly BlockInfo[] blockInfos;
+
         /// <summary>
-        /// Writes sector data to the database
+        /// Creates a new block information array class instance
         /// </summary>
-        bool Write(Vector2 position, SectorData sectorData);
+        public BlockInfoArray()
+        {
+            blockInfos = BlockInfo.CreateArray();
+        }
+
+        /// <summary>
+        /// Returns block information by a block value
+        /// </summary>
+        public BlockInfo GetBlockInfo(Block block)
+        {
+            try { return blockInfos[block]; }
+            catch { return blockInfos[(int)BlockType.Unknown]; }
+        }
     }
 }

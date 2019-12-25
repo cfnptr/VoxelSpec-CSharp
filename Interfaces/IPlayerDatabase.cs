@@ -27,12 +27,12 @@ namespace OpenVoxelSpec
         /// </summary>
         bool Contains(Username username);
         /// <summary>
-        /// Reads player from the database
+        /// Reads player data from the database
         /// </summary>
-        bool Read(Username username, out Player player);
+        PlayerData Read(Username username);
         /// <summary>
-        /// Writes player to the database
+        /// Writes player data to the database
         /// </summary>
-        bool Write(Username username, Player player);
+        bool Write(Username username, PlayerData playerData);
     }
 }

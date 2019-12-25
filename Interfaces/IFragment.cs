@@ -13,12 +13,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using OpenSharedLibrary;
-
 namespace OpenVoxelSpec
 {
     /// <summary>
-    /// Block array container interface
+    /// Fragment container interface
     /// </summary>
-    public interface IBlockArray : IArray3<Block>, IByteArray { }
+    public interface IFragment : IBlockArray
+    {
+        /// <summary>
+        /// Fragment center along X-axis
+        /// </summary>
+        int CenterX { get; }
+        /// <summary>
+        /// Fragment center along X-axis
+        /// </summary>
+        int CenterY { get; }
+        /// <summary>
+        /// Fragment center along X-axis
+        /// </summary>
+        int CenterZ { get; }
+
+        /// <summary>
+        /// Copies this fragment to the another block array
+        /// </summary>
+        void CopyFragmentTo(IBlockArray array, int offsetX, int offsetY, int offsetZ);
+    }
 }

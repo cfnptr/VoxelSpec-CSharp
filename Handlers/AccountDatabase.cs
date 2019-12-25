@@ -19,79 +19,76 @@ using System.IO;
 namespace OpenVoxelSpec
 {
     /// <summary>
-    /// Player database class
+    /// Account database class
     /// </summary>
-    public class PlayerDatabase : IPlayerDatabase
+    public class AccountDatabase : IAccountDatabase
     {
         /// <summary>
-        /// Player database folder path
+        /// Account database folder path
         /// </summary>
         protected readonly string folderPath;
 
         /// <summary>
-        /// Creates a new player database instance
+        /// Creates a new account database instance
         /// </summary>
-        public PlayerDatabase(string folderPath)
+        public AccountDatabase(string folderPath)
         {
             this.folderPath = folderPath;
 
-            if (!Directory.Exists($"{folderPath}players/"))
-                Directory.CreateDirectory($"{folderPath}players/");
+            if (!Directory.Exists($"{folderPath}accounts/"))
+                Directory.CreateDirectory($"{folderPath}accounts/");
         }
 
         /// <summary>
-        /// Returns true if the database contains player
+        /// Returns true if the database contains account data
         /// </summary>
         public bool Contains(Username username)
         {
-            lock (folderPath)
-                return File.Exists($"{folderPath}players/{username}");
+            return File.Exists($"{folderPath}accounts/{username}");
         }
         /// <summary>
-        /// Reads player from the database
+        /// Reads account data from the database
         /// </summary>
-        public bool Read(Username username, out Player player)
+        public AccountData Read(Username username)
         {
             try
             {
-                var array = new byte[Player.ByteSize];
+                var array = new byte[AccountData.ByteSize];
 
                 using (var memoryStream = new MemoryStream(array))
                 {
-                    using (var fileStream = new FileStream($"{folderPath}players/{username}", FileMode.Open, FileAccess.Read))
+                    using (var fileStream = new FileStream($"{folderPath}accounts/{username}", FileMode.Open, FileAccess.Read))
                         fileStream.CopyTo(memoryStream);
 
                     using (var binaryReader = new BinaryReader(memoryStream))
                     {
                         memoryStream.Position = 0;
-                        player = new Player(binaryReader);
-                        return true;
+                        return new AccountData(binaryReader);
                     }
                 }
             }
             catch
             {
-                player = null;
-                return false;
+                return null;
             }
         }
         /// <summary>
-        /// Writes player to the database
+        /// Writes account data to the database
         /// </summary>
-        public bool Write(Username username, Player player)
+        public bool Write(Username username, AccountData accountData)
         {
             try
             {
-                var array = new byte[Player.ByteSize];
+                var array = new byte[AccountData.ByteSize];
 
-                using(var memoryStream = new MemoryStream(array))
+                using (var memoryStream = new MemoryStream(array))
                 {
                     using (var binaryWriter = new BinaryWriter(memoryStream))
                     {
-                        player.ToBytes(binaryWriter);
+                        accountData.ToBytes(binaryWriter);
                         memoryStream.Position = 0;
 
-                        using (var fileStream = new FileStream($"{folderPath}players/{username}", FileMode.Create, FileAccess.Write))
+                        using (var fileStream = new FileStream($"{folderPath}accounts/{username}", FileMode.Create, FileAccess.Write))
                         {
                             memoryStream.CopyTo(fileStream);
                             return true;

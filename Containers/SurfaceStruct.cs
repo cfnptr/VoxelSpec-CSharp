@@ -13,27 +13,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System.Numerics;
-
 namespace OpenVoxelSpec
 {
     /// <summary>
-    /// Three-dimensional array container interface
+    /// Surface structure container structture
     /// </summary>
-    public interface IArray3D
+    public struct SurfaceStruct
     {
         /// <summary>
-        /// Length of an array
+        /// Surface structure generation chance
         /// </summary>
-        int Length { get; }
+        public int chance;
 
         /// <summary>
-        /// Array size
+        /// Surface structure block array
         /// </summary>
-        Vector3 Size { get; }
+        public IFragment structure;
+
         /// <summary>
-        /// Safe array size (size - 1)
+        /// Creates a new surface structure instance
         /// </summary>
-        Vector3 SafeSize { get; }
+        public SurfaceStruct(int chance, IFragment structure) 
+        {
+            this.chance = chance;
+            this.structure = structure;
+        }
     }
 }

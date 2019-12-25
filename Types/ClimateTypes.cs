@@ -15,15 +15,16 @@
 
 namespace OpenVoxelSpec
 {
-    public enum BlockMeshType
+    /// <summary>
+    /// Biome climate type
+    /// </summary>
+    public enum ClimateType : byte
     {
-        Block,
-        BlockSmart,
-        Sized,
-        SizedSmart,
-        Offsetted,
-        Cross,
-        Model,
-        Stair,
+        Frigid,
+        Cold,
+        Cool,
+        Warm, // Wet
+        Hot,
+        Torrid,
     }
 }

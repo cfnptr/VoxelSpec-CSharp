@@ -13,88 +13,92 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using OpenSharedLibrary;
 using System.IO;
+using System.IO.Compression;
+using System.Numerics;
 
 namespace OpenVoxelSpec
 {
     /// <summary>
-    /// Account database class
+    /// Sector database class
     /// </summary>
-    public class AccountDatabase : IAccountDatabase
+    public class SectorDatabase : ISectorDatabase
     {
         /// <summary>
-        /// Account database folder path
+        /// Sector database folder path
         /// </summary>
         protected readonly string folderPath;
 
         /// <summary>
-        /// Creates a new account database instance
+        /// Creates a new sector database instance
         /// </summary>
-        public AccountDatabase(string folderPath)
+        public SectorDatabase(string folderPath)
         {
             this.folderPath = folderPath;
 
-            if (!Directory.Exists($"{folderPath}accounts/"))
-                Directory.CreateDirectory($"{folderPath}accounts/");
+            if (!Directory.Exists($"{folderPath}sectors/"))
+                Directory.CreateDirectory($"{folderPath}sectors/");
         }
 
         /// <summary>
-        /// Returns true if the database contains account
+        /// Returns true if the database contains sector data
         /// </summary>
-        public bool Contains(Username username)
+        public bool Contains(Vector2 position)
         {
-            lock (folderPath)
-                return File.Exists($"{folderPath}accounts/{username}");
+            return File.Exists($"{folderPath}sectors/{(int)position.X}_{(int)position.Y}");
         }
         /// <summary>
-        /// Reads account from the database
+        /// Reads sector data from the database
         /// </summary>
-        public bool Read(Username username, out Account account)
+        public SectorData Read(Vector2 position)
         {
             try
             {
-                var array = new byte[Account.ByteSize];
+                var array = new byte[SectorData.ByteSize];
 
                 using (var memoryStream = new MemoryStream(array))
                 {
-                    using (var fileStream = new FileStream($"{folderPath}accounts/{username}", FileMode.Open, FileAccess.Read))
-                        fileStream.CopyTo(memoryStream);
+                    using (var fileStream = new FileStream($"{folderPath}sectors/{(int)position.X}_{(int)position.Y}", FileMode.Open, FileAccess.Read))
+                    {
+                        using (var gzipStream = new GZipStream(fileStream, CompressionMode.Decompress))
+                            gzipStream.CopyTo(memoryStream);
+                    }
 
                     using (var binaryReader = new BinaryReader(memoryStream))
                     {
                         memoryStream.Position = 0;
-                        account = new Account(binaryReader);
-                        return true;
+                        return new SectorData(binaryReader);
                     }
                 }
             }
             catch
             {
-                account = null;
-                return false;
+                return null;
             }
         }
         /// <summary>
-        /// Writes account to the database
+        /// Writes sector data to the database
         /// </summary>
-        public bool Write(Username username, Account account)
+        public bool Write(Vector2 position, SectorData sectorData)
         {
             try
             {
-                var array = new byte[Account.ByteSize];
+                var array = new byte[SectorData.ByteSize];
 
                 using (var memoryStream = new MemoryStream(array))
                 {
                     using (var binaryWriter = new BinaryWriter(memoryStream))
                     {
-                        account.ToBytes(binaryWriter);
+                        sectorData.ToBytes(binaryWriter);
                         memoryStream.Position = 0;
 
-                        using (var fileStream = new FileStream($"{folderPath}accounts/{username}", FileMode.Create, FileAccess.Write))
+                        using (var fileStream = new FileStream($"{folderPath}sectors/{(int)position.X}_{(int)position.Y}", FileMode.Create, FileAccess.Write))
                         {
-                            memoryStream.CopyTo(fileStream);
-                            return true;
+                            using (var gzipStream = new GZipStream(fileStream, CompressionMode.Compress))
+                            {
+                                memoryStream.CopyTo(gzipStream);
+                                return true;
+                            }
                         }
                     }
                 }

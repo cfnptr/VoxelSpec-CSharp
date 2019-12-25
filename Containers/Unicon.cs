@@ -13,6 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
+using System.Numerics;
+
 namespace OpenVoxelSpec
 {
     /// <summary>
@@ -21,22 +24,31 @@ namespace OpenVoxelSpec
     public static class Unicon
     {
         /// <summary>
-        /// Segment size in blocks or units along three axes
+        /// Open voxel specification version
         /// </summary>
-        public const int SegmentSize = 16;
+        public static readonly Version Version = new Version(0, 1, 0);
+
+        /// <summary>
+        /// Segment length in blocks or units along three axes
+        /// </summary>
+        public const int SegmentLength = 32;
         /// <summary>
         /// Segment area size in blocks or units
         /// </summary>
-        public const int SegmentArea = 256; // SegmentSize * SegmentSize
+        public const int SegmentArea = 1024; // SegmentSize * SegmentSize
         /// <summary>
         /// Segment volume size in blocks or units
         /// </summary>
-        public const int SegmentVolume = 4096; // SegmentSize * SegmentSize * SegmentSize
+        public const int SegmentVolume = 32768; // SegmentSize * SegmentSize * SegmentSize
+        /// <summary>
+        /// Sector size in block or units along X, Y and Z axis
+        /// </summary>
+        public static readonly Vector3 SegmentSize = new Vector3(SegmentLength, SegmentLength, SegmentLength);
 
         /// <summary>
         /// Number of segment in one sector along the Y axis
         /// </summary>
-        public const int SectorSegmentCount = 8;
+        public const int SectorSegmentCount = 4;
         /// <summary>
         /// Sector size in blocks or units along Y axis
         /// </summary>
@@ -44,6 +56,24 @@ namespace OpenVoxelSpec
         /// <summary>
         /// Sector size in blocks or units along Y axis
         /// </summary>
-        public const int SectorVolume = 32768; // SegmentVolume * SectorSegmentCount
+        public const int SectorVolume = 131072; // SegmentVolume * SectorSegmentCount
+        /// <summary>
+        /// Sector size in block or units along X, Y and Z axis
+        /// </summary>
+        public static readonly Vector3 SectortSize = new Vector3(SegmentLength, SectorHeight, SegmentLength);
+
+        /// <summary>
+        /// Default player view distance in the segments
+        /// </summary>
+        public const int SegmentViewDistance = 4;
+        /// <summary>
+        /// Default player view distance in the blocks
+        /// </summary>
+        public const int BlockViewDistance = SegmentViewDistance * SegmentLength;
+
+        /// <summary>
+        /// Block information container array
+        /// </summary>
+        public static readonly IBlockInfoArray BlockInfoArray = new BlockInfoArray();
     }
 }

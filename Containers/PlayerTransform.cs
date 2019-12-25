@@ -71,20 +71,5 @@ namespace OpenVoxelSpec
             bodyPosition.ToBytes(binaryWriter);
             headBodyRotation.ToBytes(binaryWriter);
         }
-
-        /// <summary>
-        /// Maximum reposition value
-        /// </summary>
-        public const float MaxRespoition = 0.16f; // 0,4 * 0,4
-
-        /// <summary>
-        /// Returns true if the reposition does not exceed the maximum value
-        /// </summary>
-        public static bool IsValidReposition(PlayerTransform from, PlayerTransform to, Vector3 bounds)
-        {
-            return to.bodyPosition.X > 0 && to.bodyPosition.Y > 0 && to.bodyPosition.Z > 0 &&
-                to.bodyPosition.X < bounds.X && to.bodyPosition.Y < bounds.Y && to.bodyPosition.Z < bounds.Z;
-                //Vector3.DistanceSquared(from.bodyPosition, to.bodyPosition) < MaxRespoition;
-        }
     }
 }

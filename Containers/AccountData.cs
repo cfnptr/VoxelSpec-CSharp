@@ -19,26 +19,26 @@ using System.IO;
 namespace OpenVoxelSpec
 {
     /// <summary>
-    /// Account container class
+    /// Account data container class
     /// </summary>
-    public class Account : IByteArray
+    public class AccountData : IByteArray
     {
         /// <summary>
-        /// Account container byte array size
+        /// Account data container byte array size
         /// </summary>
         public const int ByteSize = Passhash.ByteSize + EmailAddress.ByteSize + sizeof(byte) * 2;
 
         /// <summary>
-        /// Account container byte array size
+        /// Account data container byte array size
         /// </summary>
         public int ByteArraySize => ByteSize;
 
         /// <summary>
-        /// Account passhash
+        /// Passhash
         /// </summary>
         public Passhash passhash;
         /// <summary>
-        /// Account email address
+        /// Email address
         /// </summary>
         public EmailAddress emailAddress;
         /// <summary>
@@ -46,14 +46,14 @@ namespace OpenVoxelSpec
         /// </summary>
         public bool isBlocked;
         /// <summary>
-        /// Account status type
+        /// Status type
         /// </summary>
         public AccountType type;
 
         /// <summary>
-        /// Creates a new account container class instance
+        /// Creates a new account data container class instance
         /// </summary>
-        public Account(Passhash passhash, EmailAddress emailAddress, bool isBlocked = false, AccountType type = AccountType.Basic)
+        public AccountData(Passhash passhash, EmailAddress emailAddress, bool isBlocked = false, AccountType type = AccountType.Basic)
         {
             this.passhash = passhash;
             this.emailAddress = emailAddress;
@@ -61,9 +61,9 @@ namespace OpenVoxelSpec
             this.type = type;
         }
         /// <summary>
-        /// Creates a new account container class instance
+        /// Creates a new account data container class instance
         /// </summary>
-        public Account(BinaryReader binaryReader)
+        public AccountData(BinaryReader binaryReader)
         {
             passhash = new Passhash(binaryReader);
             emailAddress = EmailAddress.FromBytes(binaryReader);
@@ -72,7 +72,7 @@ namespace OpenVoxelSpec
         }
 
         /// <summary>
-        /// Converts account container to the byte array
+        /// Converts account data container to the byte array
         /// </summary>
         public void ToBytes(BinaryWriter binaryWriter)
         {

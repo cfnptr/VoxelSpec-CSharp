@@ -13,12 +13,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using OpenSharedLibrary;
+
 namespace OpenVoxelSpec
 {
     /// <summary>
     /// Metadata array container interface
     /// </summary>
-    public interface IMetadataArray : IArray3D
+    public interface IMetadataArray : IArray3<int>, IByteArray
     {
     }
 }

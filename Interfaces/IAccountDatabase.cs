@@ -23,16 +23,16 @@ namespace OpenVoxelSpec
     public interface IAccountDatabase
     {
         /// <summary>
-        /// Returns true if the database contains account
+        /// Returns true if the database contains account data
         /// </summary>
         bool Contains(Username username);
         /// <summary>
-        /// Reads account from the database
+        /// Reads account data from the database
         /// </summary>
-        bool Read(Username username, out Account account);
+        AccountData Read(Username username);
         /// <summary>
-        /// Writes account to the database
+        /// Writes account data to the database
         /// </summary>
-        bool Write(Username username, Account account);
+        bool Write(Username username, AccountData accountData);
     }
 }

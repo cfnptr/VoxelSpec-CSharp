@@ -34,7 +34,7 @@ namespace OpenVoxelSpec
         /// <summary>
         /// Generates surface relief block array
         /// </summary>
-        void GenerateSurface(IBlockArray array, Vector2 position, SurfaceBiome[] surfaceBiomes, Block subsurface);
+        void GenerateSurface(IBlockArray array, Vector2 position, SurfaceInfo info, SurfaceBiome[] surfBiomes);
         /// <summary>
         /// Generates world block array
         /// </summary>

@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 // Copyright 2019 Nikita Fediuchin (QuantumBranch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,17 +13,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace OpenVoxelSpec
 {
-    public enum BlockMeshType
+    class BlockAnimal
     {
-        Block,
-        BlockSmart,
-        Sized,
-        SizedSmart,
-        Offsetted,
-        Cross,
-        Model,
-        Stair,
+        // When allert level is big animal running from one spot to the another
+        int alertLevel;
     }
 }
