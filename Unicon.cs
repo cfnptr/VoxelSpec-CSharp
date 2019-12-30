@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using OpenVoxelSpec.World;
+using OpenVoxelSpec.Blocks.Containers;
 using System;
 using System.Numerics;
 
