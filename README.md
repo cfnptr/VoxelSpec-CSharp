@@ -1,2 +1,1 @@
-# OpenCubicSpace
-Open-source voxel game base specification
+# Moved [here](https://github.com/InjectorGames/VoxelSpec-CSharp)
