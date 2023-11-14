@@ -1,1 +1,1 @@
-# Moved [here](https://github.com/InjectorGames/VoxelSpec-CSharp)
+# Successor ----> [Voxy](https://github.com/cfnptr/voxy)
